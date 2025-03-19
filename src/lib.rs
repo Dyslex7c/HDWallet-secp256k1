@@ -1,4 +1,6 @@
 pub mod mnemonic;
+pub mod derivation;
+pub mod keys;
 
 pub use mnemonic::{
     MnemonicStrength,
