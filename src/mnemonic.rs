@@ -1,5 +1,7 @@
 use bip39::Mnemonic;
 use rand::{rngs::OsRng, RngCore};
+use std::fmt;
+use std::error::Error as StdError;
 
 pub enum MnemonicStrength {
     Words12,
@@ -27,6 +29,17 @@ pub enum MnemonicError {
     EntropyGenerationFailed,
     //SeedGenerationFailed,
 }
+
+impl fmt::Display for MnemonicError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            MnemonicError::InvalidMnemonic => write!(f, "Invalid mnemonic phrase"),
+            MnemonicError::EntropyGenerationFailed => write!(f, "Failed to generate entropy"),
+        }
+    }
+}
+
+impl StdError for MnemonicError {}
 
 pub struct SecureMnemonic {
     mnemonic: Mnemonic,
